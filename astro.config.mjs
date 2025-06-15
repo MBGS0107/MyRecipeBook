@@ -1,7 +1,7 @@
 // astro.config.mjs
 /** @ts-check */
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/serverless'; // ✅ Adapter correcto para Vercel
+import vercel from '@astrojs/vercel'; // ✅ Adapter correcto para Vercel
 
 export default defineConfig({
   output: 'server',           // ⚙️ Necesario para funciones SSR

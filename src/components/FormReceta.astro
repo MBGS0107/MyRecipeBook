@@ -325,7 +325,7 @@ const BACKEND_URL = import.meta.env.BACKEND_URL || 'http://127.0.0.1:3000';
       submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
 
       try {
-        const res = await fetch('http://192.168.1.102:5000/api/recetas', {
+        const res = await fetch('https://myrecipebook-d7cg.onrender.com/api/recetas', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)

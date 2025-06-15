@@ -1,6 +1,6 @@
 ---
 // src/components/Agente.astro
-const BACKEND_URL = import.meta.env.BACKEND_URL || 'http://127.0.0.1:3000';
+const BACKEND_URL = import.meta.env.BACKEND_URL || 'https://myrecipebook-d7cg.onrender.com';
 ---
 
 <!-- Botón flotante para mobile -->
@@ -359,7 +359,7 @@ const BACKEND_URL = import.meta.env.BACKEND_URL || 'http://127.0.0.1:3000';
           hasCachedData: !!recipeData
         });
 
-        const resp = await fetch(`http://192.168.1.102:5000/api/chat-venta`, {
+        const resp = await fetch(`https://myrecipebook-d7cg.onrender.com/api/chat-venta`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(requestBody)

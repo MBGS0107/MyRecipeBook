@@ -1,4 +1,29 @@
 <!-- Aquí más adelante irá el cálculo de totales -->
 <div class="border-t pt-4 mt-4 text-gray-700">
-  <p>[Resultados por unidad aparecerán aquí]</p>
+  <button id="reload-recipes" class="mt-6 px-5 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-bold shadow hover:from-orange-600 hover:to-amber-600 transition-all">🔄 Recargar Recetas</button>
+  <div id="reload-status" class="mt-3 text-sm"></div>
 </div>
+
+<script type="module">
+const API_URL = 'http://192.168.1.102:5000/api/recetas';
+const btn = document.getElementById('reload-recipes');
+const status = document.getElementById('reload-status');
+
+btn.onclick = async () => {
+  status.textContent = 'Recargando...';
+  status.className = 'mt-3 text-sm text-amber-600';
+  try {
+    localStorage.removeItem('recetas');
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error('Error al obtener recetas');
+    const recetas = await res.json();
+    localStorage.setItem('recetas', JSON.stringify(recetas));
+    status.textContent = '✅ Recetas recargadas y cache actualizado';
+    status.className = 'mt-3 text-sm text-green-700';
+    setTimeout(() => window.location.reload(), 1000);
+  } catch (e) {
+    status.textContent = '❌ Error al recargar recetas';
+    status.className = 'mt-3 text-sm text-red-700';
+  }
+};
+</script>

@@ -1,10 +1,18 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 
-// https://astro.build/config
 export default defineConfig({
-    server: {
-        port: 3000, // Puerto 3000
-        host: true, // Accesible desde cualquier host
-    },
+  // Habilita SSR en todas las páginas
+  output: 'server',
+
+  // Configura el adapter de Node en modo standalone
+  adapter: node({
+    mode: 'standalone',
+  }),
+
+  server: {
+    port: 3000,
+    host: true,
+  },
 });

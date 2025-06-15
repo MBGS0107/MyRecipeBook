@@ -5,15 +5,15 @@ const BACKEND_URL = import.meta.env.BACKEND_URL || 'http://127.0.0.1:3000';
 <!-- Mobile menu button -->
 <button 
   id="mobile-menu-button"
-  class="lg:hidden fixed top-4 left-4 z-50 w-12 h-12 bg-gray-900 text-white rounded-xl shadow-lg flex items-center justify-center"
+  class="lg:hidden fixed top-4 left-4 z-50 w-12 h-12 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-xl shadow-xl flex items-center justify-center hover:scale-110 transition-all duration-300 border-2 border-amber-400"
 >
-  <span id="menu-icon">☰</span>
+  <span id="menu-icon" class="text-amber-400 text-lg">☰</span>
 </button>
 
 <!-- Overlay for mobile -->
 <div 
   id="mobile-overlay" 
-  class="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden"
+  class="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-md z-40 hidden transition-opacity duration-300"
 ></div>
 
 <!-- Sidebar -->

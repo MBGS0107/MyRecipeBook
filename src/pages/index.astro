@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Header from '../components/Header.astro';
+import Inicio from '../components/Inicio.astro';
+import RecetaForm from '../components/FormReceta.astro';
+import Resultado from '../components/Resultado.astro';
+---
+
+<Layout title="CROQUERS - Inicio">
+  <div class="flex min-h-screen relative">
+    <Sidebar />
+
+    <!-- Main content with responsive margins -->
+    <main class="flex-1 lg:ml-80 transition-all duration-300 ease-in-out">
+      <div class="min-h-screen">
+        <Header />
+
+        <!-- Vista principal -->
+        <section id="vista-inicio" class="block">
+          <Inicio />
+        </section>
+
+        <!-- Vista de creación -->
+        <section id="vista-receta" class="hidden">
+          <div class="container mx-auto px-4 py-8 space-y-8">
+            <RecetaForm />
+            <Resultado />
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script is:inline>
+    const rutas = {
+      "#inicio": "vista-inicio",
+      "#recetas": "vista-receta"
+    };
+
+    function mostrarVista(hash) {
+      // Hide all views
+      Object.values(rutas).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add("hidden");
+          el.classList.remove("block");
+        }
+      });
+
+      // Show selected view
+      const vista = rutas[hash] || "vista-inicio";
+      const mostrar = document.getElementById(vista);
+      if (mostrar) {
+        mostrar.classList.remove("hidden");
+        mostrar.classList.add("block");
+      }
+
+      // Update URL without triggering hashchange
+      if (hash && window.location.hash !== hash) {
+        history.replaceState(null, null, hash);
+      }
+    }
+
+    // Handle initial load
+    window.addEventListener("DOMContentLoaded", () => {
+      mostrarVista(location.hash);
+    });
+
+    // Handle hash changes
+    window.addEventListener("hashchange", () => {
+      mostrarVista(location.hash);
+    });
+
+    // Handle navigation clicks
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (link) {
+        e.preventDefault();
+        const hash = link.getAttribute('href');
+        mostrarVista(hash);
+        window.location.hash = hash;
+      }
+    });
+  </script>
+</Layout>

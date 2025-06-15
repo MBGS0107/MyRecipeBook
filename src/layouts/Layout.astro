@@ -1,0 +1,143 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "CROQUERS - Repostería Profesional", description = "Plataforma para calcular y visualizar el precio unitario de tus recetas caseras" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/Logo.jpg" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/Logo.jpg" as="image" />
+    
+    <!-- Meta tags for better SEO -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Global styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      /* Smooth transitions */
+      * {
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+
+      /* Loading animation */
+      @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: calc(200px + 100%) 0; }
+      }
+      
+      .shimmer {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200px 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      /* Prevent horizontal scroll */
+      html, body {
+        overflow-x: hidden;
+      }
+
+      /* Mobile optimizations */
+      @media (max-width: 1024px) {
+        .sidebar-open {
+          overflow: hidden;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 antialiased">
+    <!-- Loading screen -->
+    <div id="global-loading" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+      <div class="text-center">
+        <div class="w-20 h-20 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full flex items-center justify-center mb-4 mx-auto animate-pulse">
+          <span class="text-3xl">🍪</span>
+        </div>
+        <h2 class="text-xl font-bold text-gray-800 mb-2">CROQUERS</h2>
+        <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full animate-pulse"></div>
+        </div>
+        <p class="text-sm text-gray-600 mt-2">Cargando plataforma...</p>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-500">
+      <slot />
+    </div>
+
+    <!-- Global scripts -->
+    <script is:inline>
+      // Hide loading screen when page is ready
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const loading = document.getElementById('global-loading');
+          const content = document.getElementById('main-content');
+          
+          if (loading && content) {
+            loading.style.opacity = '0';
+            content.style.opacity = '1';
+            
+            setTimeout(() => {
+              loading.style.display = 'none';
+            }, 500);
+          }
+        }, 1000);
+      });
+
+      // Global error handler
+      window.addEventListener('error', (e) => {
+        console.error('Global error:', e.error);
+      });
+
+      // Global utilities
+      window.CROQUERS = {
+        showToast: (message, type = 'info') => {
+          // Simple toast implementation
+          const toast = document.createElement('div');
+          toast.className = `fixed top-4 right-4 z-50 px-4 py-2 rounded-lg text-white text-sm font-medium transform translate-x-full transition-transform duration-300 ${
+            type === 'error' ? 'bg-red-500' : type === 'success' ? 'bg-green-500' : 'bg-blue-500'
+          }`;
+          toast.textContent = message;
+          document.body.appendChild(toast);
+          
+          setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+          setTimeout(() => {
+            toast.style.transform = 'translateX(full)';
+            setTimeout(() => document.body.removeChild(toast), 300);
+          }, 3000);
+        }
+      };
+    </script>
+  </body>
+</html>

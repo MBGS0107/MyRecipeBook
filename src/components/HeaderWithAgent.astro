@@ -1,0 +1,50 @@
+---
+// src/components/HeaderWithAgent.astro - Header específico para páginas con agente
+---
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm mb-6">
+  <div class="md:mr-80 px-4 sm:px-6 py-4"> <!-- mr-80 para dejar espacio al agente en desktop -->
+    <div class="flex items-center justify-between">
+      <!-- Logo y título -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
+          <span class="text-xl sm:text-2xl">🧁</span>
+        </div>
+        <div class="min-w-0">
+          <h1 class="text-lg sm:text-2xl font-bold text-gray-900 truncate">Receta Detallada</h1>
+          <p class="text-xs sm:text-sm text-gray-600 hidden sm:block">Análisis completo de costos y precios</p>
+          <p class="text-xs text-gray-600 sm:hidden">Costos y precios</p>
+        </div>
+      </div>
+
+      <!-- Indicadores de estado y navegación -->
+      <div class="flex items-center space-x-2 sm:space-x-4">
+        <div class="hidden sm:flex items-center space-x-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm">
+          <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span>Asistente activo</span>
+        </div>
+        
+        <!-- Status indicator for mobile -->
+        <div class="sm:hidden w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+        
+        <!-- Breadcrumb -->
+        <nav class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
+          <a href="/" class="hover:text-gray-900 transition-colors">🏠</a>
+          <span>/</span>
+          <span>📖</span>
+          <span>/</span>
+          <span class="text-gray-900 font-medium">Receta</span>
+        </nav>
+        
+        <!-- Mobile back button -->
+        <a href="/" class="sm:hidden text-gray-600 hover:text-gray-900 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra decorativa -->
+  <div class="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400"></div>
+</header>
